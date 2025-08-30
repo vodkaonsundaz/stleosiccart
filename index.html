@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australia in 1000 Pixels</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24, #f0932b);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .artwork-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(40, 1fr);
+            grid-template-rows: repeat(25, 1fr);
+            gap: 2px;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 8/5;
+            background: #f0f0f0;
+            padding: 10px;
+        }
+
+        .pixel-dot {
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            position: relative;
+        }
+
+        .pixel-dot:hover {
+            transform: scale(1.3);
+            z-index: 10;
+        }
+
+        /* Traditional Aboriginal art color palette */
+        .color-1 { background: #8B4513; } /* Ochre brown - earth pigment */
+        .color-2 { background: #D2B48C; } /* Tan ochre */
+        .color-3 { background: #A0522D; } /* Sienna brown */
+        .color-4 { background: #CD853F; } /* Light ochre */
+        .color-5 { background: #D2691E; } /* Orange ochre */
+        .color-6 { background: #B22222; } /* Red ochre */
+        .color-7 { background: #800000; } /* Dark red ochre */
+        .color-8 { background: #2F4F4F; } /* Charcoal gray */
+        .color-9 { background: #696969; } /* Ash gray */
+        .color-10 { background: #000000; } /* Charcoal black */
+        .color-11 { background: #DC143C; } /* Crimson red */
+        .color-12 { background: #8B4513; } /* Burnt sienna */
+        .color-13 { background: #F4A460; } /* Sandy brown */
+        .color-14 { background: #DEB887; } /* Buff/tan */
+        .color-15 { background: #CD853F; } /* Peru ochre */
+        .color-16 { background: #A0522D; } /* Rust brown */
+        .color-17 { background: #BC9A6A; } /* Light brown ochre */
+        .color-18 { background: #DAA520; } /* Golden ochre */
+        .color-19 { background: #8B0000; } /* Deep red */
+        .color-20 { background: #CD853F; } /* Golden brown ochre */
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 1000;
+            max-width: 200px;
+            text-align: left;
+            line-height: 1.3;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .quote {
+            margin-top: 40px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .artwork-grid {
+                grid-template-columns: repeat(25, 1fr);
+                grid-template-rows: repeat(40, 1fr);
+                gap: 1px;
+            }
+            
+            .stats {
+                gap: 20px;
+            }
+            
+            .stat-item {
+                padding: 15px 20px;
+            }
+        }
+
+        .legend {
+            margin-top: 20px;
+            text-align: center;
+            color: rgba(0,0,0,0.6);
+            font-size: 14px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Australia in Aboriginal Art</h1>
+        <p><b>'1000'</b> dots that represents a defining moment in <b>Australian History</b>, hover to discover the stories that built our nation...</p>
+    </div>
+
+    <div class="artwork-container">
+        <div class="artwork-grid" id="artworkGrid"></div>
+        <div class="legend">
+            ~1000 moments of Triumph, Courage, and National Pride~
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-item">
+            <span class="stat-number">1000</span>
+            <span class="stat-label">Pixels of History</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">1000</span>
+            <span class="stat-label">Greatest Moments</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">1</span>
+            <span class="stat-label">United Nation</span>
+        </div>
+    </div>
+
+    <div class="quote">
+        "I love a sunburnt country, a land of sweeping plains, of ragged mountain ranges, of droughts and flooding rains." – Dorothea Mackellar, My Country (1911)
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Australia's 100 Greatest Historical Moments
+        const greatestMoments = [
+            { title: "First Fleet Arrival", year: 1788, description: "Captain Arthur Phillip establishes Sydney Cove, beginning European settlement of Australia" },
+            { title: "Federation", year: 1901, description: "Six colonies unite to form the Commonwealth of Australia, creating our modern nation" },
+            { title: "Gallipoli Landing", year: 1915, description: "ANZAC forces demonstrate extraordinary courage at Gallipoli, forging our national identity" },
+            { title: "Darwin Mail Service", year: 1919, description: "First international mail flight connects Australia to the world, pioneering aviation" },
+            { title: "Canberra Established", year: 1927, description: "Purpose-built capital city officially opens as symbol of national unity" },
+            { title: "Sydney Harbour Bridge", year: 1932, description: "Engineering marvel connects Sydney's shores, becoming icon of Australian progress" },
+            { title: "WWII Pacific Defense", year: 1942, description: "Australia stands firm against Pacific invasion, demonstrating national courage" },
+            { title: "Post-War Immigration", year: 1947, description: "Massive immigration program transforms Australia into multicultural nation" },
+            { title: "Snowy Mountains Scheme", year: 1949, description: "Engineering marvel provides power and water, symbol of national development" },
+            { title: "Melbourne Olympics", year: 1956, description: "First Southern Hemisphere Olympics showcase modern Australia to the world" },
+            { title: "Aboriginal Rights Referendum", year: 1967, description: "90% of Australians vote for Indigenous recognition in historic referendum" },
+            { title: "Sydney Opera House Opening", year: 1973, description: "Architectural masterpiece opens, becoming world icon of Australian culture" },
+            { title: "Whitlam Reforms", year: 1972, description: "Universal healthcare and free education reforms transform Australian society" },
+            { title: "America's Cup Victory", year: 1983, description: "Australia II breaks 132-year American dominance in sailing's greatest prize" },
+            { title: "Bicentenary Celebrations", year: 1988, description: "Australia celebrates 200 years of European settlement with national pride" },
+            { title: "Native Title Recognition", year: 1992, description: "High Court recognizes Indigenous land rights in landmark Mabo decision" },
+            { title: "Sydney Olympics", year: 2000, description: "Best Games Ever showcase Australia's excellence in hosting global events" },
+            { title: "Apology to Stolen Generations", year: 2008, description: "National apology to Indigenous Australians begins healing and reconciliation process" },
+            { title: "COVID-19 Response", year: 2020, description: "Swift and effective response protects Australian lives during global pandemic" },
+            { title: "Gold Rush Discovery", year: 1851, description: "Gold discoveries in Victoria and NSW transform Australia's economy forever" },
+            { title: "Phar Lap's Melbourne Cup", year: 1930, description: "Legendary horse captures Australian hearts during Great Depression" },
+            { title: "Flying Doctor Service", year: 1928, description: "Medical care reaches remote Australia, saving countless outback lives" },
+            { title: "Overland Telegraph", year: 1872, description: "Telegraph line connects Australia to world communications network" },
+            { title: "Women's Right to Vote", year: 1902, description: "Australian women among world's first to gain voting rights" },
+            { title: "ANZAC Day Tradition", year: 1916, description: "First commemoration honors fallen heroes, becoming sacred national tradition" },
+            { title: "Broken Hill Mining", year: 1883, description: "Silver, lead and zinc discoveries establish Australia's mining heritage" },
+            { title: "Burke and Wills Expedition", year: 1860, description: "First south-north crossing attempt demonstrates Australian exploration spirit" },
+            { title: "Australian Antarctic Territory", year: 1933, description: "Claiming Antarctica for science demonstrates Australian leadership" },
+            { title: "Holden Car Manufacturing", year: 1948, description: "First Australian-made car rolls out, symbol of industrial pride" },
+            { title: "School of the Air", year: 1951, description: "Radio education reaches remote children, pioneering distance learning" },
+            { title: "Ten Pound Poms", year: 1945, description: "British migration program helps build post-war Australian population" },
+            { title: "Cyclone Tracy Recovery", year: 1974, description: "Darwin rebuilds after total destruction, demonstrating Australian resilience" },
+            { title: "Aboriginal Land Rights Act", year: 1976, description: "Northern Territory recognizes Indigenous land rights in groundbreaking legislation" },
+            { title: "Australia Act", year: 1986, description: "Australia gains full independence from British Parliament" },
+            { title: "Keating's Redfern Speech", year: 1992, description: "Prime Minister acknowledges Indigenous dispossession in historic address" },
+            { title: "Howard's Gun Laws", year: 1996, description: "Bipartisan gun control after Port Arthur massacre leads world" },
+            { title: "Marriage Equality Vote", year: 2017, description: "61% vote Yes for marriage equality in historic postal survey" },
+            { title: "Uluru Statement", year: 2017, description: "Indigenous leaders call for Voice, Treaty, Truth in constitutional moment" },
+            { title: "NDIS Launch", year: 2013, description: "National Disability Insurance Scheme begins, world-leading social innovation" },
+            { title: "Murray River Agreement", year: 1915, description: "States cooperate on water management, pioneering environmental cooperation" },
+            { title: "Great Barrier Reef Protection", year: 1975, description: "Marine park protects world's largest reef system" },
+            { title: "Crocodile Hunter Legacy", year: 1996, description: "Steve Irwin introduces Australian wildlife to global audience" },
+            { title: "Don Bradman Cricket", year: 1928, description: "Greatest batsman transforms cricket, achieving sporting immortality" },
+            { title: "Rod Laver Tennis", year: 1962, description: "Rocket achieves tennis Grand Slam perfection twice" },
+            { title: "Dawn Fraser Swimming", year: 1956, description: "Three consecutive Olympic golds demonstrate Australian swimming dominance" },
+            { title: "Cathy Freeman Olympic Gold", year: 2000, description: "Indigenous runner unites nation in historic 400m victory" },
+            { title: "Ian Thorpe Swimming", year: 2000, description: "Thorpedo dominates pool with multiple Olympic golds" },
+            { title: "Lleyton Hewitt Tennis", year: 2001, description: "Youngest ever world number 1 shows Australian sporting determination" },
+            { title: "Cadel Evans Tour", year: 2011, description: "First Australian wins cycling's greatest race, Tour de France" },
+            { title: "Cricket World Cup", year: 1987, description: "Australia wins first Cricket World Cup on home soil" },
+            { title: "Netball World Championships", year: 1963, description: "Diamonds begin era of netball dominance" },
+            { title: "AFL Grand Final", year: 1897, description: "Melbourne tradition becomes national sporting obsession" },
+            { title: "State of Origin Rugby", year: 1980, description: "Queensland vs NSW rivalry creates greatest rugby league spectacle" },
+            { title: "Melbourne Cup Tradition", year: 1861, description: "Race that stops the nation begins sporting tradition" },
+            { title: "Waltzing Matilda", year: 1895, description: "Banjo Paterson writes Australia's unofficial national anthem" },
+            { title: "Men at Work Down Under", year: 1981, description: "Global hit becomes unofficial Australian anthem" },
+            { title: "INXS Rock Success", year: 1985, description: "Australian rockers achieve massive international success" },
+            { title: "John Farnham Whispering Jack", year: 1986, description: "Farnsy's comeback album becomes Australian music legend" },
+            { title: "Paul Hogan Crocodile Dundee", year: 1986, description: "Outback hero charms world, becoming cultural ambassador" },
+            { title: "Russell Crowe Gladiator", year: 2000, description: "Australian actor wins Oscar for iconic gladiator performance" },
+            { title: "Nicole Kidman Oscar", year: 2003, description: "Australian actress wins Academy Award for The Hours" },
+            { title: "Heath Ledger Dark Knight", year: 2008, description: "Posthumous Oscar for brilliant Joker performance" },
+            { title: "Tropfest Film Festival", year: 1993, description: "World's largest short film festival begins in Sydney" },
+            { title: "MONA Museum", year: 2011, description: "Museum of Old and New Art transforms Hobart culturally" },
+            { title: "Adelaide Fringe Festival", year: 1960, description: "Open access arts festival becomes world's second largest" },
+            { title: "Melbourne Comedy Festival", year: 1987, description: "Comedy capital of Southern Hemisphere attracts global talent" },
+            { title: "Splendour in the Grass", year: 2001, description: "Alternative music festival defines generation of Australian youth" },
+            { title: "CSIRO WiFi Invention", year: 1996, description: "Australian scientists invent WiFi technology, revolutionizing communications" },
+            { title: "Royal Flying Doctor", year: 1928, description: "Mantle of safety spreads across vast Australian continent" },
+            { title: "Cochlear Implant", year: 1978, description: "Graeme Clark's bionic ear helps deaf people hear worldwide" },
+            { title: "IVF Pioneer", year: 1973, description: "Carl Wood pioneers in vitro fertilization techniques" },
+            { title: "HPV Vaccine", year: 2006, description: "Ian Frazer's vaccine prevents cervical cancer globally" },
+            { title: "Antarctic Research", year: 1954, description: "Mawson Base leads world in climate research" },
+            { title: "Surf Life Saving", year: 1906, description: "Volunteer heroes protect Australian beaches and swimmers" },
+            { title: "Midnight Oil Activism", year: 1987, description: "Beds Are Burning highlights Indigenous rights through music" },
+            { title: "Mad Max Films", year: 1979, description: "George Miller creates iconic action cinema franchise" },
+            { title: "Neighbours Global Fame", year: 1985, description: "Australian soap opera launches international acting careers" },
+            { title: "Australian Crawl Swimming", year: 1896, description: "Revolutionary swimming stroke invented by Australian swimmers" },
+            { title: "Margaret Court Tennis", year: 1970, description: "Record 24 Grand Slam singles titles demonstrate excellence" },
+            { title: "Kylie Minogue Success", year: 1987, description: "Australian pop princess conquers global music charts" },
+            { title: "AC/DC Rock Legacy", year: 1973, description: "Australian hard rock band becomes global music legends" },
+            { title: "Cate Blanchett Theatre", year: 2008, description: "World-class actress leads Sydney Theatre Company" },
+            { title: "Hugh Jackman Broadway", year: 2003, description: "Wolverine star conquers Broadway musical theatre" },
+            { title: "Baz Luhrmann Films", year: 1992, description: "Distinctive Australian cinema style emerges internationally" },
+            { title: "Peter Weir Cinema", year: 1975, description: "Picnic at Hanging Rock launches Australian film renaissance" },
+            { title: "Priscilla Queen Desert", year: 1994, description: "Film celebrates diversity and acceptance in outback journey" },
+            { title: "Muriel's Wedding", year: 1994, description: "Quirky comedy perfectly captures Australian character" },
+            { title: "The Castle Film", year: 1997, description: "Battler family story resonates with Australian spirit" },
+            { title: "Home and Away", year: 1988, description: "Summer Bay lifestyle captures hearts worldwide" },
+            { title: "Whitlam Dismissal", year: 1975, description: "Constitutional crisis tests and proves democratic resilience" },
+            { title: "Hawke's Beer Declaration", year: 1983, description: "Any boss who sacks anyone today is a bum" },
+            { title: "Rudd's GFC Response", year: 2008, description: "Swift economic action prevents recession during global crisis" },
+            { title: "Black Summer Recovery", year: 2019, description: "Community resilience shines through devastating bushfire crisis" },
+            { title: "Australian Open Tennis", year: 1905, description: "Grand Slam tournament grows into global sporting spectacle" },
+            { title: "Commonwealth Games Host", year: 1938, description: "Australia successfully hosts first British Empire Games" },
+            { title: "Formula 1 Grand Prix", year: 1985, description: "Adelaide brings Formula 1 racing spectacle to Australia" },
+            { title: "A-League Soccer Growth", year: 2005, description: "Football finally finds its place in Australian sporting culture" },
+            { title: "Olivia Newton-John Grease", year: 1978, description: "Sandy becomes global entertainment icon from Australia" },
+            { title: "Geoffrey Rush Shine", year: 1996, description: "Character actor wins Academy Award for piano performance" },
+            { title: "Toni Collette Breakthrough", year: 1994, description: "Versatile actress emerges in Muriel's Wedding success" },
+            { title: "Rebel Wilson Comedy", year: 2011, description: "Bridesmaids performance launches global comedy career" },
+            { title: "Hemsworth Brothers", year: 2011, description: "Thunder from Down Under conquers Hollywood action films" },
+            { title: "Margot Robbie Barbie", year: 2023, description: "Australian actress produces and stars in global phenomenon" },
+            { title: "Dark Mofo Festival", year: 2013, description: "Winter solstice celebration transforms Hobart cultural scene" },
+            { title: "Byron Bay Bluesfest", year: 1990, description: "Music festival becomes beloved cultural institution" },
+            { title: "Big Day Out", year: 1992, description: "Alternative rock festival tours nation, defining music culture" },
+            { title: "Australian Research Council", year: 2001, description: "Excellence in research program drives scientific innovation" }
+        ];
+
+        // Color classes for the dots
+        const colorClasses = [
+            'color-1', 'color-2', 'color-3', 'color-4', 'color-5',
+            'color-6', 'color-7', 'color-8', 'color-9', 'color-10',
+            'color-11', 'color-12', 'color-13', 'color-14', 'color-15',
+            'color-16', 'color-17', 'color-18', 'color-19', 'color-20'
+        ];
+
+        function createPixelGrid() {
+            const artworkGrid = document.getElementById('artworkGrid');
+            const tooltip = document.getElementById('tooltip');
+            
+            // Create 1000 pixels (repeat the 100 events 10 times)
+            for (let i = 0; i < 1000; i++) {
+                const moment = greatestMoments[i % greatestMoments.length];
+                const pixel = document.createElement('div');
+                pixel.className = `pixel-dot ${colorClasses[i % colorClasses.length]}`;
+                
+                // Simple hover effect - show tooltip
+                pixel.addEventListener('mouseenter', (e) => {
+                    const rect = pixel.getBoundingClientRect();
+                    tooltip.innerHTML = `
+                        <strong>${moment.title}</strong> (${moment.year})<br>
+                        ${moment.description}
+                    `;
+                    tooltip.style.left = rect.left + rect.width / 2 + 'px';
+                    tooltip.style.top = rect.top - 10 + 'px';
+                    tooltip.style.transform = 'translateX(-50%) translateY(-100%)';
+                    tooltip.classList.add('show');
+                });
+                
+                pixel.addEventListener('mouseleave', () => {
+                    tooltip.classList.remove('show');
+                });
+                
+                artworkGrid.appendChild(pixel);
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', createPixelGrid);
+    </script>
+</body>
+</html>
