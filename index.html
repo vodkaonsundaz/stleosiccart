@@ -258,7 +258,7 @@
     <div class="tooltip" id="tooltip"></div>
 
     <script>
-        // Australia's 100 Greatest Historical Moments
+       
         const greatestMoments = [
             { title: "First Fleet Arrival", year: 1788, description: "Captain Arthur Phillip establishes Sydney Cove, beginning European settlement of Australia" },
             { title: "Federation", year: 1901, description: "Six colonies unite to form the Commonwealth of Australia, creating our modern nation" },
@@ -369,7 +369,7 @@
             { title: "Australian Research Council", year: 2001, description: "Excellence in research program drives scientific innovation" }
         ];
 
-        // Color classes for the dots
+        
         const colorClasses = [
             'color-1', 'color-2', 'color-3', 'color-4', 'color-5',
             'color-6', 'color-7', 'color-8', 'color-9', 'color-10',
@@ -386,7 +386,7 @@
                 const pixel = document.createElement('div');
                 pixel.className = `pixel-dot ${colorClasses[i % colorClasses.length]}`;
                 
-                // Simple hover effect - show tooltip
+                
                 pixel.addEventListener('mouseenter', (e) => {
                     const rect = pixel.getBoundingClientRect();
                     tooltip.innerHTML = `
@@ -407,10 +407,11 @@
             }
         }
 
-        // Initialize the page
+       
         document.addEventListener('DOMContentLoaded', createPixelGrid);
     </script>
 </body>
 
 </html>
+
 
